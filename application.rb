@@ -40,6 +40,13 @@ class VendingMachine
 end
 
 class User
+  def initialize(money)
+    @money = money
+  end
+
+  def money
+    @money
+  end
 end
 
 puts "商品を用意してください。"
@@ -56,3 +63,7 @@ end
 # VendingMachineクラスのインスタンス生成の際、事前に登録した3つの商品情報を含む配列drinksを、実引数として渡している
 vending_machine = VendingMachine.new(drinks)
 vending_machine.show_drinks
+
+puts "あなたはお客さんです。投入金額を決めてください。"
+money = gets.to_i
+user = User.new(money)
