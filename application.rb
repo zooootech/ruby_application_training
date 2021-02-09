@@ -6,6 +6,7 @@ class Drink
   end
 
   # 「インスタンス.name」という記述によって、設定したインスタンス変数の値が得られるようになる
+  # このような、インスタンス変数の値のみを戻り値としたメソッドのことをゲッターと呼ぶ
   def name
     @name
   end
@@ -17,6 +18,25 @@ class Drink
 end
 
 class VendingMachine
+  def initialize(drinks)
+    # initializeメソッドで生成した@drinksには、受け取った配列の情報が代入される
+    @drinks = drinks
+  end
+
+  def drinks
+    @drinks
+  end
+
+  def show_drinks
+    puts "いらっしゃいませ。以下の商品を販売しています"
+    i = 0
+    # selfは、show_drinksメソッドを適用されたインスタンス自身が、同じクラス内で定義したインスタンスメソッドdrinksを利用することを宣言している
+    # selfが書かれているインスタンスメソッドを適用したインスタンス自身が代入されている変数だと考える（今回の場合、vending_machine）
+    self.drinks.each do |drink|
+      puts "【#{i}】#{drink.name}: #{drink.fee}円"
+      i += 1
+    end
+  end
 end
 
 class User
@@ -33,4 +53,6 @@ drinks = []
   drinks << Drink.new(drink_name, drink_fee)
 end
 
-puts drinks
+# VendingMachineクラスのインスタンス生成の際、事前に登録した3つの商品情報を含む配列drinksを、実引数として渡している
+vending_machine = VendingMachine.new(drinks)
+vending_machine.show_drinks
