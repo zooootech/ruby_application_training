@@ -37,6 +37,19 @@ class VendingMachine
       i += 1
     end
   end
+
+  def pay(user)
+    puts "商品を選んでください"
+    # ユーザーが選んだドリンクの番号を変数choosen_drinkに代入
+    choosen_drink = user.choose_drink
+    # 「ユーザーの投入金額」と「選ばれた商品の金額」の差分を計算して、その結果を変数changeに代入
+    change = user.money - self.drinks[choosen_drink].fee
+    if change >= 0
+      puts "ご利用ありがとうございました！お釣りは#{change}円です。"
+    else
+      puts "投入金額が足りません。"
+    end
+  end
 end
 
 class User
@@ -46,6 +59,10 @@ class User
 
   def money
     @money
+  end
+
+  def choose_drink
+    gets.to_i
   end
 end
 
@@ -67,3 +84,5 @@ vending_machine.show_drinks
 puts "あなたはお客さんです。投入金額を決めてください。"
 money = gets.to_i
 user = User.new(money)
+
+vending_machine.pay(user)
